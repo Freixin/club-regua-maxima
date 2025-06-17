@@ -3,9 +3,14 @@ from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 import os
 import logging
+import sys
 from pathlib import Path
 from typing import List, Optional
 from datetime import datetime, date, time, timedelta
+
+# Add the backend directory to the Python path
+backend_dir = Path(__file__).parent
+sys.path.append(str(backend_dir))
 
 # Import models
 from models.customer import Customer, CustomerCreate
