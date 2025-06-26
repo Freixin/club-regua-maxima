@@ -1,91 +1,66 @@
-import React, { createContext, useContext, useState } from "react";
+import React from "react";
 
-const DialogContext = createContext();
-
-export const Dialog = ({ children, ...props }) => {
-  const [open, setOpen] = useState(false);
-  
-  return (
-    <DialogContext.Provider value={{ open, setOpen }}>
-      <div {...props}>
-        {children}
-      </div>
-    </DialogContext.Provider>
-  );
-};
-
-export const DialogTrigger = ({ children, asChild, ...props }) => {
-  const { setOpen } = useContext(DialogContext);
-  
-  const handleClick = () => {
-    setOpen(true);
-  };
-
-  if (asChild) {
-    return React.cloneElement(children, {
-      onClick: handleClick,
-      ...props
-    });
-  }
-
-  return (
-    <button onClick={handleClick} {...props}>
-      {children}
-    </button>
-  );
-};
-
-export const DialogContent = ({ children, className = "", ...props }) => {
-  const { open, setOpen } = useContext(DialogContext);
-
+// Versão simplificada do Dialog sem dependências externas
+const Dialog = ({ open, onOpenChange, children }) => {
   if (!open) return null;
-
+  
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
-      {/* Backdrop */}
       <div 
-        className="absolute inset-0 bg-black/50 backdrop-blur-sm" 
-        onClick={() => setOpen(false)}
+        className="fixed inset-0 bg-black/80" 
+        onClick={() => onOpenChange(false)}
       />
-      
-      {/* Dialog content */}
-      <div 
-        className={`relative bg-slate-900 border border-gray-700 rounded-lg shadow-lg max-w-lg w-full m-4 p-6 ${className}`}
-        {...props}
-      >
-        {/* Close button */}
-        <button
-          onClick={() => setOpen(false)}
-          className="absolute top-4 right-4 text-gray-400 hover:text-white"
-        >
-          ✕
-        </button>
+      <div className="fixed z-50 grid w-full max-w-lg gap-4 border border-[var(--color-border)] bg-[var(--color-bg-secondary)] p-6 shadow-lg sm:rounded-lg">
         {children}
       </div>
     </div>
   );
 };
 
-export const DialogHeader = ({ children, ...props }) => {
-  return (
-    <div className="flex flex-col space-y-1.5 text-center sm:text-left mb-4" {...props}>
-      {children}
-    </div>
-  );
+const DialogTrigger = ({ children, ...props }) => {
+  return React.cloneElement(children, props);
 };
 
-export const DialogTitle = ({ children, className = "", ...props }) => {
-  return (
-    <h2 className={`text-lg font-semibold leading-none tracking-tight ${className}`} {...props}>
-      {children}
-    </h2>
-  );
-};
+const DialogPortal = ({ children }) => children;
+const DialogOverlay = () => null;
+const DialogClose = ({ children }) => children;
 
-export const DialogDescription = ({ children, className = "", ...props }) => {
-  return (
-    <p className={`text-sm text-gray-400 ${className}`} {...props}>
-      {children}
-    </p>
-  );
+const DialogContent = React.forwardRef(({ className, children, ...props }, ref) => (
+  <Dialog {...props}>
+    {children}
+  </Dialog>
+));
+DialogContent.displayName = "DialogContent";
+
+const DialogHeader = ({ className, ...props }) => (
+  <div className="flex flex-col space-y-1.5 text-center sm:text-left" {...props} />
+);
+DialogHeader.displayName = "DialogHeader";
+
+const DialogFooter = ({ className, ...props }) => (
+  <div className="flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2" {...props} />
+);
+DialogFooter.displayName = "DialogFooter";
+
+const DialogTitle = React.forwardRef(({ className, ...props }, ref) => (
+  <h2 className="text-lg font-semibold leading-none tracking-tight" {...props} ref={ref} />
+));
+DialogTitle.displayName = "DialogTitle";
+
+const DialogDescription = React.forwardRef(({ className, ...props }, ref) => (
+  <p className="text-sm text-[var(--color-text-main)]/70" {...props} ref={ref} />
+));
+DialogDescription.displayName = "DialogDescription";
+
+export {
+  Dialog,
+  DialogPortal,
+  DialogOverlay,
+  DialogClose,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogFooter,
+  DialogTitle,
+  DialogDescription,
 };

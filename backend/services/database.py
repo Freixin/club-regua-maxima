@@ -13,7 +13,7 @@ class DatabaseService:
     async def connect(self):
         """Connect to MongoDB"""
         try:
-            mongo_url = os.environ['MONGO_URL']
+            mongo_url = os.environ.get('MONGO_URL', 'mongodb://localhost:27017')
             db_name = os.environ.get('DB_NAME', 'barbershop')
             
             self.client = AsyncIOMotorClient(mongo_url)

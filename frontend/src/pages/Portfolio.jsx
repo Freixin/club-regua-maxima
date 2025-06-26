@@ -39,17 +39,16 @@ const Portfolio = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-950 to-slate-900">
+    <div className="min-h-screen bg-[var(--color-bg-main)]">
       <Header />
-      
       <div className="pt-20 pb-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           {/* Header */}
           <div className="text-center mb-16">
-            <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">
-              Nosso <span className="text-green-400">Portfólio</span>
+            <h1 className="text-4xl md:text-6xl font-bold text-[var(--color-text-gold)] mb-4">
+              Nosso <span className="text-[var(--color-gold)]">Portfólio</span>
             </h1>
-            <p className="text-gray-300 text-lg max-w-3xl mx-auto">
+            <p className="text-[var(--color-text-main)] text-lg max-w-3xl mx-auto">
               Cada corte é uma obra de arte única. Veja algumas das nossas 
               transformações mais impressionantes e inspire-se para seu próximo visual.
             </p>
@@ -60,15 +59,15 @@ const Portfolio = () => {
             {stats.map((stat, index) => {
               const Icon = stat.icon;
               return (
-                <Card key={index} className="bg-slate-900/50 border-gray-700 text-center">
+                <Card key={index} className="bg-[var(--color-bg-secondary)] border-[var(--color-border)] hover:border-[var(--color-gold)] transition-all duration-300 group overflow-hidden text-center">
                   <CardContent className="p-6">
-                    <div className="bg-green-500/20 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <Icon className="w-6 h-6 text-green-400" />
+                    <div className="bg-[var(--color-gold)]/10 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <Icon className="w-6 h-6 text-[var(--color-gold)]" />
                     </div>
-                    <div className="text-2xl font-bold text-green-400 mb-1">
+                    <div className="text-2xl font-bold text-[var(--color-gold)] mb-1">
                       {stat.value}
                     </div>
-                    <div className="text-gray-400 text-sm">
+                    <div className="text-[var(--color-text-main)] text-sm">
                       {stat.label}
                     </div>
                   </CardContent>
@@ -87,20 +86,19 @@ const Portfolio = () => {
                 className={`
                   transition-all duration-300 hover:scale-105
                   ${selectedCategory === category 
-                    ? "bg-green-500 text-white hover:bg-green-600" 
-                    : "border-green-500/30 text-green-400 hover:bg-green-500 hover:text-white"
-                  }
-                `}
-              >
-                {category}
-              </Button>
+                    ? "bg-[var(--color-gold)] text-[var(--color-bg-main)] hover:bg-[var(--color-gold-dark)]" 
+                    : "border-[var(--color-gold-dark)] text-[var(--color-gold-dark)] hover:bg-[var(--color-gold)] hover:text-[var(--color-bg-main)]"}
+              `}
+            >
+              {category}
+            </Button>
             ))}
           </div>
 
           {/* Portfolio Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-16">
             {expandedPortfolio.map((item) => (
-              <Card key={item.id} className="bg-slate-900/50 border-gray-700 hover:border-green-500/50 transition-all duration-300 group overflow-hidden">
+              <Card key={item.id} className="bg-[var(--color-bg-secondary)] border-[var(--color-border)] hover:border-[var(--color-gold)] transition-all duration-300 group overflow-hidden">
                 <CardContent className="p-0">
                   {/* Before/After Images */}
                   <div className="relative">
@@ -112,7 +110,7 @@ const Portfolio = () => {
                           className="w-full h-32 object-cover transition-transform duration-300 group-hover:scale-110"
                         />
                         <div className="absolute top-2 left-2">
-                          <Badge variant="secondary" className="text-xs bg-red-500/20 text-red-400 border-red-500/30">
+                          <Badge variant="secondary" className="text-xs bg-[var(--color-gold)]/10 text-[var(--color-gold)] border-[var(--color-gold-dark)]">
                             Antes
                           </Badge>
                         </div>
@@ -124,7 +122,7 @@ const Portfolio = () => {
                           className="w-full h-32 object-cover transition-transform duration-300 group-hover:scale-110"
                         />
                         <div className="absolute top-2 right-2">
-                          <Badge variant="secondary" className="text-xs bg-green-500/20 text-green-400 border-green-500/30">
+                          <Badge variant="secondary" className="text-xs bg-[var(--color-gold)]/10 text-[var(--color-gold)] border-[var(--color-gold-dark)]">
                             Depois
                           </Badge>
                         </div>
@@ -138,26 +136,26 @@ const Portfolio = () => {
                           <DialogTrigger asChild>
                             <Button
                               size="sm"
-                              className="w-full bg-green-500/20 backdrop-blur-sm text-green-400 border-green-500/30 hover:bg-green-500 hover:text-white"
+                              className="w-full bg-[var(--color-gold)]/10 backdrop-blur-sm text-[var(--color-gold)] border-[var(--color-gold-dark)] hover:bg-[var(--color-gold)] hover:text-[var(--color-bg-main)]"
                               onClick={() => setSelectedImage(item)}
                             >
                               <Eye className="w-4 h-4 mr-2" />
                               Ver Detalhes
                             </Button>
                           </DialogTrigger>
-                          <DialogContent className="bg-slate-900 border-gray-700 max-w-2xl">
+                          <DialogContent className="bg-[#222d26] border-[#232a25] max-w-2xl">
                             <DialogHeader>
-                              <DialogTitle className="text-white text-xl">
+                              <DialogTitle className="text-[var(--color-text-gold)] text-xl">
                                 {item.service}
                               </DialogTitle>
-                              <DialogDescription className="text-gray-400">
+                              <DialogDescription className="text-[var(--color-text-main)]">
                                 {item.description}
                               </DialogDescription>
                             </DialogHeader>
                             <div className="space-y-4">
                               <div className="grid grid-cols-2 gap-4">
                                 <div className="space-y-2">
-                                  <h4 className="text-white font-medium">Antes</h4>
+                                  <h4 className="text-[var(--color-text-gold)] font-medium">Antes</h4>
                                   <img
                                     src={`${item.before}&v=${item.id}`}
                                     alt="Antes"
@@ -165,7 +163,7 @@ const Portfolio = () => {
                                   />
                                 </div>
                                 <div className="space-y-2">
-                                  <h4 className="text-white font-medium">Depois</h4>
+                                  <h4 className="text-[var(--color-text-gold)] font-medium">Depois</h4>
                                   <img
                                     src={`${item.after}&v=${item.id}`}
                                     alt="Depois"
@@ -173,18 +171,18 @@ const Portfolio = () => {
                                   />
                                 </div>
                               </div>
-                              <div className="bg-green-500/10 border border-green-500/20 rounded-lg p-4">
+                              <div className="bg-[var(--color-gold)]/10 border border-[var(--color-gold-dark)] rounded-lg p-4">
                                 <div className="flex items-center space-x-2">
-                                  <Star className="w-5 h-5 text-yellow-400 fill-current" />
-                                  <span className="text-white font-medium">Avaliação do Cliente:</span>
+                                  <Star className="w-5 h-5 text-[var(--color-gold)] fill-current" />
+                                  <span className="text-[var(--color-text-gold)] font-medium">Avaliação do Cliente:</span>
                                 </div>
-                                <p className="text-gray-300 text-sm mt-2">
+                                <p className="text-[var(--color-text-main)] text-sm mt-2">
                                   "Ficou perfeito! Superou todas as minhas expectativas. 
                                   Profissional muito técnico e atencioso."
                                 </p>
                                 <div className="flex items-center space-x-1 mt-2">
                                   {[...Array(5)].map((_, i) => (
-                                    <Star key={i} className="w-4 h-4 text-yellow-400 fill-current" />
+                                    <Star key={i} className="w-4 h-4 text-[var(--color-gold)] fill-current" />
                                   ))}
                                 </div>
                               </div>
@@ -197,19 +195,19 @@ const Portfolio = () => {
 
                   {/* Content */}
                   <div className="p-4">
-                    <h3 className="font-semibold text-white mb-1 text-sm">
+                    <h3 className="font-semibold text-[var(--color-text-gold)] mb-1 text-sm">
                       {item.service}
                     </h3>
-                    <p className="text-gray-400 text-xs leading-relaxed">
+                    <p className="text-[var(--color-text-main)] text-xs leading-relaxed">
                       {item.description}
                     </p>
                     <div className="flex items-center justify-between mt-3">
                       <div className="flex items-center space-x-1">
                         {[...Array(5)].map((_, i) => (
-                          <Star key={i} className="w-3 h-3 text-yellow-400 fill-current" />
+                          <Star key={i} className="w-3 h-3 text-[var(--color-gold)] fill-current" />
                         ))}
                       </div>
-                      <Badge variant="outline" className="text-xs border-green-500/30 text-green-400">
+                      <Badge variant="outline" className="text-xs border-[var(--color-gold-dark)] text-[var(--color-gold)]">
                         Verificado
                       </Badge>
                     </div>
@@ -220,12 +218,12 @@ const Portfolio = () => {
           </div>
 
           {/* Testimonials Section */}
-          <div className="bg-gradient-to-r from-green-500/10 to-green-600/10 border border-green-500/20 rounded-2xl p-8 mb-16">
+          <div className="bg-[var(--color-gold)]/10 border border-[var(--color-gold-dark)] rounded-2xl p-8 mb-16">
             <div className="text-center mb-8">
-              <h2 className="text-3xl font-bold text-white mb-4">
+              <h2 className="text-3xl font-bold text-[var(--color-text-gold)] mb-4">
                 Depoimentos dos Clientes
               </h2>
-              <p className="text-gray-300">
+              <p className="text-[var(--color-text-main)]">
                 Veja o que nossos clientes falam sobre nosso trabalho
               </p>
             </div>
@@ -251,26 +249,26 @@ const Portfolio = () => {
                   service: "Corte + Reflexo"
                 }
               ].map((testimonial, index) => (
-                <Card key={index} className="bg-slate-900/50 border-gray-700">
+                <Card key={index} className="bg-[var(--color-bg-secondary)] border-[var(--color-border)] hover:border-[var(--color-gold)] transition-all duration-300 group overflow-hidden">
                   <CardContent className="p-6">
                     <div className="flex items-center space-x-1 mb-3">
                       {[...Array(testimonial.rating)].map((_, i) => (
-                        <Star key={i} className="w-4 h-4 text-yellow-400 fill-current" />
+                        <Star key={i} className="w-4 h-4 text-[var(--color-gold)] fill-current" />
                       ))}
                     </div>
-                    <p className="text-gray-300 text-sm mb-4 italic">
+                    <p className="text-[var(--color-text-main)] text-sm mb-4 italic">
                       "{testimonial.comment}"
                     </p>
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="text-white font-medium text-sm">
+                        <p className="text-[var(--color-text-gold)] font-medium text-sm">
                           {testimonial.name}
                         </p>
-                        <p className="text-gray-400 text-xs">
+                        <p className="text-[var(--color-text-main)] text-xs">
                           {testimonial.service}
                         </p>
                       </div>
-                      <Badge variant="outline" className="text-xs border-green-500/30 text-green-400">
+                      <Badge variant="outline" className="text-xs border-[var(--color-gold-dark)] text-[var(--color-gold)]">
                         Verificado
                       </Badge>
                     </div>
@@ -282,17 +280,17 @@ const Portfolio = () => {
 
           {/* CTA Section */}
           <div className="text-center">
-            <Card className="bg-slate-900/50 border-gray-700 max-w-2xl mx-auto">
+            <Card className="bg-[var(--color-bg-secondary)] border-[var(--color-border)] hover:border-[var(--color-gold)] transition-all duration-300 group overflow-hidden max-w-2xl mx-auto">
               <CardContent className="p-8">
-                <h2 className="text-2xl font-bold text-white mb-4">
+                <h2 className="text-2xl font-bold text-[var(--color-text-gold)] mb-4">
                   Pronto para sua transformação?
                 </h2>
-                <p className="text-gray-300 mb-6">
+                <p className="text-[var(--color-text-main)] mb-6">
                   Agende seu horário e faça parte do nosso portfólio de sucessos
                 </p>
                 <Button
                   size="lg"
-                  className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold px-8 py-3 rounded-lg shadow-lg transition-all duration-300 hover:scale-105"
+                  className="bg-[var(--color-gold)] hover:bg-[var(--color-gold-dark)] text-[var(--color-bg-main)] font-bold px-8 py-3 rounded-lg shadow-lg transition-all duration-300 hover:scale-105"
                 >
                   Agendar Meu Horário
                 </Button>

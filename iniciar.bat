@@ -1,0 +1,3 @@
+@echo off
+echo Iniciando Club Regua Maxima...
+call scripts\dev\start-all.bat

@@ -50,7 +50,7 @@ const Contact = () => {
       action: () => {
         window.open(`https://wa.me/5521999999999?text=Olá! Gostaria de mais informações sobre a barbearia.`, '_blank');
       },
-      color: "bg-green-500/10 text-green-400 border-green-500/20"
+      color: "bg-[var(--color-gold)]/10 text-[var(--color-gold)] border-[var(--color-gold)]/20"
     },
     {
       icon: Instagram,
@@ -60,7 +60,7 @@ const Contact = () => {
       action: () => {
         window.open('https://instagram.com/vinicius.clubreguamaxima', '_blank');
       },
-      color: "bg-pink-500/10 text-pink-400 border-pink-500/20"
+      color: "bg-[var(--color-text-gold)]/10 text-[var(--color-text-gold)] border-[var(--color-text-gold)]/20"
     },
     {
       icon: MapPin,
@@ -70,7 +70,7 @@ const Contact = () => {
       action: () => {
         window.open(`https://maps.google.com/?q=${encodeURIComponent(barberInfo.address)}`, '_blank');
       },
-      color: "bg-blue-500/10 text-blue-400 border-blue-500/20"
+      color: "bg-[var(--color-gold)]/10 text-[var(--color-gold)] border-[var(--color-gold)]/20"
     }
   ];
 
@@ -85,17 +85,17 @@ const Contact = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-950 to-slate-900">
+    <div className="min-h-screen bg-[var(--color-bg-main)]">
       <Header />
       
       <div className="pt-20 pb-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           {/* Header */}
           <div className="text-center mb-16">
-            <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">
-              Entre em <span className="text-green-400">Contato</span>
+            <h1 className="text-4xl md:text-6xl font-bold text-[var(--color-text-gold)] mb-4">
+              Entre em <span className="text-[var(--color-gold)]">Contato</span>
             </h1>
-            <p className="text-gray-300 text-lg max-w-3xl mx-auto">
+            <p className="text-[var(--color-text-main)] text-lg max-w-3xl mx-auto">
               Tem alguma dúvida ou precisa de mais informações? 
               Estamos aqui para ajudar! Entre em contato conosco.
             </p>
@@ -104,7 +104,7 @@ const Contact = () => {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
             {/* Contact Methods */}
             <div className="lg:col-span-1 space-y-6">
-              <h2 className="text-2xl font-bold text-white mb-6">
+              <h2 className="text-2xl font-bold text-[var(--color-text-gold)] mb-6">
                 Fale Conosco
               </h2>
               
@@ -140,10 +140,10 @@ const Contact = () => {
               })}
 
               {/* Business Hours */}
-              <Card className="bg-slate-900/50 border-gray-700">
+              <Card className="bg-[var(--color-bg-secondary)] border-[var(--color-border)]">
                 <CardHeader>
-                  <CardTitle className="text-white flex items-center">
-                    <Clock className="w-5 h-5 mr-2 text-green-400" />
+                  <CardTitle className="text-[var(--color-text-gold)] flex items-center">
+                    <Clock className="w-5 h-5 mr-2 text-[var(--color-gold)]" />
                     Horário de Funcionamento
                   </CardTitle>
                 </CardHeader>
@@ -151,13 +151,13 @@ const Contact = () => {
                   <div className="space-y-3">
                     {businessHours.map((schedule, index) => (
                       <div key={index} className="flex justify-between items-center">
-                        <span className="text-gray-300 text-sm">
+                        <span className="text-[var(--color-text-main)] text-sm">
                           {schedule.day}
                         </span>
                         <span className={`text-sm font-medium ${
                           schedule.hours === "Fechado" 
-                            ? "text-red-400" 
-                            : "text-green-400"
+                            ? "text-[var(--color-text-gold)]" 
+                            : "text-[var(--color-gold)]"
                         }`}>
                           {schedule.hours}
                         </span>
@@ -168,16 +168,16 @@ const Contact = () => {
               </Card>
 
               {/* Reviews Summary */}
-              <Card className="bg-gradient-to-r from-green-500/10 to-green-600/10 border-green-500/20">
+              <Card className="bg-[var(--color-gold)]/10 border-[var(--color-gold)]/20">
                 <CardContent className="p-6 text-center">
                   <div className="flex items-center justify-center space-x-1 mb-2">
                     {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
+                      <Star key={i} className="w-5 h-5 text-[var(--color-gold)] fill-current" />
                     ))}
                   </div>
-                  <div className="text-2xl font-bold text-green-400 mb-1">4.9/5</div>
-                  <div className="text-gray-300 text-sm">200+ avaliações</div>
-                  <div className="text-green-400 text-xs mt-2 font-medium">
+                  <div className="text-2xl font-bold text-[var(--color-gold)] mb-1">4.9/5</div>
+                  <div className="text-[var(--color-text-main)] text-sm">200+ avaliações</div>
+                  <div className="text-[var(--color-gold)] text-xs mt-2 font-medium">
                     ⭐ Altamente recomendado
                   </div>
                 </CardContent>
@@ -186,12 +186,12 @@ const Contact = () => {
 
             {/* Contact Form */}
             <div className="lg:col-span-2">
-              <Card className="bg-slate-900/50 border-gray-700">
+              <Card className="bg-[var(--color-bg-secondary)] border-[var(--color-border)]">
                 <CardHeader>
-                  <CardTitle className="text-white text-2xl">
+                  <CardTitle className="text-[var(--color-text-gold)] text-2xl">
                     Envie uma Mensagem
                   </CardTitle>
-                  <CardDescription className="text-gray-400">
+                  <CardDescription className="text-[var(--color-text-main)]">
                     Preencha o formulário abaixo e responderemos o mais breve possível
                   </CardDescription>
                 </CardHeader>
@@ -199,20 +199,20 @@ const Contact = () => {
                   <form onSubmit={handleSubmit} className="space-y-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div>
-                        <Label htmlFor="name" className="text-white">
+                        <Label htmlFor="name" className="text-[var(--color-text-gold)]">
                           Nome Completo *
                         </Label>
                         <Input
                           id="name"
                           value={formData.name}
                           onChange={(e) => setFormData({...formData, name: e.target.value})}
-                          className="bg-slate-800 border-gray-600 text-white"
+                          className="bg-[var(--color-bg-main)] border-[var(--color-border)] text-[var(--color-text-main)]"
                           placeholder="Seu nome completo"
                           required
                         />
                       </div>
                       <div>
-                        <Label htmlFor="email" className="text-white">
+                        <Label htmlFor="email" className="text-[var(--color-text-gold)]">
                           E-mail *
                         </Label>
                         <Input
@@ -220,7 +220,7 @@ const Contact = () => {
                           type="email"
                           value={formData.email}
                           onChange={(e) => setFormData({...formData, email: e.target.value})}
-                          className="bg-slate-800 border-gray-600 text-white"
+                          className="bg-[var(--color-bg-main)] border-[var(--color-border)] text-[var(--color-text-main)]"
                           placeholder="seu@email.com"
                           required
                         />
@@ -229,40 +229,40 @@ const Contact = () => {
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div>
-                        <Label htmlFor="phone" className="text-white">
+                        <Label htmlFor="phone" className="text-[var(--color-text-gold)]">
                           Telefone
                         </Label>
                         <Input
                           id="phone"
                           value={formData.phone}
                           onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                          className="bg-slate-800 border-gray-600 text-white"
+                          className="bg-[var(--color-bg-main)] border-[var(--color-border)] text-[var(--color-text-main)]"
                           placeholder="(21) 99999-9999"
                         />
                       </div>
                       <div>
-                        <Label htmlFor="subject" className="text-white">
+                        <Label htmlFor="subject" className="text-[var(--color-text-gold)]">
                           Assunto
                         </Label>
                         <Input
                           id="subject"
                           value={formData.subject}
                           onChange={(e) => setFormData({...formData, subject: e.target.value})}
-                          className="bg-slate-800 border-gray-600 text-white"
+                          className="bg-[var(--color-bg-main)] border-[var(--color-border)] text-[var(--color-text-main)]"
                           placeholder="Qual o assunto?"
                         />
                       </div>
                     </div>
 
                     <div>
-                      <Label htmlFor="message" className="text-white">
+                      <Label htmlFor="message" className="text-[var(--color-text-gold)]">
                         Mensagem *
                       </Label>
                       <Textarea
                         id="message"
                         value={formData.message}
                         onChange={(e) => setFormData({...formData, message: e.target.value})}
-                        className="bg-slate-800 border-gray-600 text-white min-h-[120px]"
+                        className="bg-[var(--color-bg-main)] border-[var(--color-border)] text-[var(--color-text-main)] min-h-[120px]"
                         placeholder="Escreva sua mensagem aqui..."
                         required
                       />
@@ -272,7 +272,7 @@ const Contact = () => {
                       <Button
                         type="submit"
                         size="lg"
-                        className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-semibold px-8 py-3 transition-all duration-300 hover:scale-105"
+                        className="bg-[var(--color-gold)] hover:bg-[var(--color-gold-dark)] text-[var(--color-bg-main)] font-semibold px-8 py-3"
                       >
                         <Mail className="w-5 h-5 mr-2" />
                         Enviar Mensagem
@@ -286,7 +286,7 @@ const Contact = () => {
                           const message = formData.message || "Gostaria de mais informações sobre a barbearia.";
                           window.open(`https://wa.me/5521999999999?text=${encodeURIComponent(message)}`, '_blank');
                         }}
-                        className="border-green-500 text-green-400 hover:bg-green-500 hover:text-white font-semibold px-8 py-3 transition-all duration-300 hover:scale-105"
+                        className="border-[var(--color-gold)] text-[var(--color-gold)] hover:bg-[var(--color-gold)] hover:text-[var(--color-bg-main)] font-semibold px-8 py-3"
                       >
                         <MessageCircle className="w-5 h-5 mr-2" />
                         WhatsApp Direto
@@ -299,13 +299,13 @@ const Contact = () => {
           </div>
 
           {/* Map Section */}
-          <Card className="bg-slate-900/50 border-gray-700 mb-16">
+          <Card className="bg-[var(--color-bg-secondary)] border-[var(--color-border)] mb-16">
             <CardHeader>
-              <CardTitle className="text-white text-2xl flex items-center">
-                <MapPin className="w-6 h-6 mr-2 text-green-400" />
+              <CardTitle className="text-[var(--color-text-gold)] text-2xl flex items-center">
+                <MapPin className="w-6 h-6 mr-2 text-[var(--color-gold)]" />
                 Nossa Localização
               </CardTitle>
-              <CardDescription className="text-gray-400">
+              <CardDescription className="text-[var(--color-text-main)]">
                 Estamos localizados em Belford Roxo, RJ. Venha nos visitar!
               </CardDescription>
             </CardHeader>
@@ -313,18 +313,18 @@ const Contact = () => {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {/* Address Info */}
                 <div className="space-y-6">
-                  <div className="bg-green-500/10 border border-green-500/20 rounded-lg p-6">
-                    <h3 className="text-green-400 font-semibold text-lg mb-4">
+                  <div className="bg-[var(--color-gold)]/10 border border-[var(--color-gold)]/20 rounded-lg p-6">
+                    <h3 className="text-[var(--color-gold)] font-semibold text-lg mb-4">
                       Endereço Completo
                     </h3>
                     <div className="space-y-3">
                       <div className="flex items-center space-x-3">
-                        <MapPin className="w-5 h-5 text-green-400" />
+                        <MapPin className="w-5 h-5 text-[var(--color-gold)]" />
                         <div>
-                          <p className="text-white font-medium">
+                          <p className="text-[var(--color-text-gold)] font-medium">
                             {barberInfo.address}
                           </p>
-                          <p className="text-gray-400 text-sm">
+                          <p className="text-[var(--color-text-main)] text-sm">
                             (Local temporário)
                           </p>
                         </div>
@@ -332,11 +332,11 @@ const Contact = () => {
                     </div>
                   </div>
 
-                  <div className="bg-blue-500/10 border border-blue-500/20 rounded-lg p-6">
-                    <h3 className="text-blue-400 font-semibold text-lg mb-4">
+                  <div className="bg-[var(--color-text-gold)]/10 border border-[var(--color-text-gold)]/20 rounded-lg p-6">
+                    <h3 className="text-[var(--color-text-gold)] font-semibold text-lg mb-4">
                       Como Chegar
                     </h3>
-                    <ul className="space-y-2 text-gray-300 text-sm">
+                    <ul className="space-y-2 text-[var(--color-text-main)] text-sm">
                       <li>• Próximo ao centro de Belford Roxo</li>
                       <li>• Fácil acesso por transporte público</li>
                       <li>• Estacionamento disponível na região</li>
@@ -348,7 +348,7 @@ const Contact = () => {
                     onClick={() => {
                       window.open(`https://maps.google.com/?q=${encodeURIComponent(barberInfo.address)}`, '_blank');
                     }}
-                    className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 transition-all duration-300 hover:scale-105"
+                    className="w-full bg-[var(--color-gold)] hover:bg-[var(--color-gold-dark)] text-[var(--color-bg-main)] font-semibold py-3"
                   >
                     <Navigation className="w-5 h-5 mr-2" />
                     Abrir no Google Maps
@@ -356,21 +356,21 @@ const Contact = () => {
                 </div>
 
                 {/* Map Placeholder */}
-                <div className="bg-slate-800 rounded-lg overflow-hidden border border-gray-700">
+                <div className="bg-[var(--color-bg-main)] rounded-lg overflow-hidden border border-[var(--color-border)]">
                   <div className="aspect-square lg:aspect-auto lg:h-full flex items-center justify-center">
                     <div className="text-center space-y-4">
-                      <div className="bg-green-500/20 w-16 h-16 rounded-full flex items-center justify-center mx-auto">
-                        <MapPin className="w-8 h-8 text-green-400" />
+                      <div className="bg-[var(--color-gold)]/20 w-16 h-16 rounded-full flex items-center justify-center mx-auto">
+                        <MapPin className="w-8 h-8 text-[var(--color-gold)]" />
                       </div>
                       <div>
-                        <h3 className="text-white font-semibold text-lg">
+                        <h3 className="text-[var(--color-text-gold)] font-semibold text-lg">
                           Localização no Mapa
                         </h3>
-                        <p className="text-gray-400 text-sm">
+                        <p className="text-[var(--color-text-main)] text-sm">
                           Clique no botão acima para ver no Google Maps
                         </p>
                       </div>
-                      <div className="text-green-400 text-sm">
+                      <div className="text-[var(--color-gold)] text-sm">
                         📍 {barberInfo.address}
                       </div>
                     </div>
@@ -381,12 +381,12 @@ const Contact = () => {
           </Card>
 
           {/* FAQ Section */}
-          <Card className="bg-slate-900/50 border-gray-700">
+          <Card className="bg-[var(--color-bg-secondary)] border-[var(--color-border)]">
             <CardHeader>
-              <CardTitle className="text-white text-2xl">
+              <CardTitle className="text-[var(--color-text-gold)] text-2xl">
                 Perguntas Frequentes
               </CardTitle>
-              <CardDescription className="text-gray-400">
+              <CardDescription className="text-[var(--color-text-main)]">
                 Tire suas dúvidas principais
               </CardDescription>
             </CardHeader>
@@ -418,11 +418,11 @@ const Contact = () => {
                     answer: "Entre em contato pelo WhatsApp e confira nossas promoções!"
                   }
                 ].map((faq, index) => (
-                  <div key={index} className="bg-slate-800/50 rounded-lg p-4 border border-gray-700">
-                    <h4 className="text-green-400 font-semibold mb-2">
+                  <div key={index} className="bg-[var(--color-bg-main)] rounded-lg p-4 border border-[var(--color-border)]">
+                    <h4 className="text-[var(--color-gold)] font-semibold mb-2">
                       {faq.question}
                     </h4>
-                    <p className="text-gray-300 text-sm">
+                    <p className="text-[var(--color-text-main)] text-sm">
                       {faq.answer}
                     </p>
                   </div>

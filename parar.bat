@@ -1,0 +1,3 @@
+@echo off
+echo Parando Club Regua Maxima...
+call scripts\dev\stop-all.bat

@@ -16,61 +16,52 @@ class WhatsAppService:
         
     def is_configured(self) -> bool:
         """Check if WhatsApp is properly configured"""
-        return bool(self.access_token and self.phone_number_id)
+        # Sempre retorna True para Baileys
+        return True
     
     async def send_appointment_confirmation(self, appointment: AppointmentResponse) -> bool:
-        """Send appointment confirmation message"""
-        if not self.is_configured():
-            logger.warning("WhatsApp not configured - using mock confirmation")
-            return await self._mock_confirmation(appointment)
-        
+        """Envia confirmação via Baileys API local"""
         try:
-            # Clean phone number (remove non-digits)
             phone = ''.join(filter(str.isdigit, appointment.customer_phone))
-            
-            # Ensure phone starts with country code
             if not phone.startswith('55'):
                 phone = '55' + phone
-            
             message = self._format_confirmation_message(appointment)
-            
-            response = await self._send_message(phone, message)
-            
-            if response:
-                logger.info(f"Confirmation sent to {appointment.customer_phone}")
+            # Envia para o serviço Node.js local
+            resp = requests.post(
+                'http://localhost:3001/send',
+                json={"to": phone, "message": message},
+                timeout=10
+            )
+            if resp.status_code == 200:
+                logger.info(f"Confirmation sent to {phone} via Baileys API")
                 return True
             else:
-                logger.error(f"Failed to send confirmation to {appointment.customer_phone}")
+                logger.error(f"Failed to send confirmation to {phone}: {resp.text}")
                 return False
-                
         except Exception as e:
-            logger.error(f"Error sending WhatsApp confirmation: {e}")
+            logger.error(f"Error sending WhatsApp confirmation via Baileys: {e}")
             return False
-    
+
     async def send_reminder(self, appointment: AppointmentResponse) -> bool:
-        """Send appointment reminder message"""
-        if not self.is_configured():
-            logger.warning("WhatsApp not configured - using mock reminder")
-            return True
-        
+        """Envia lembrete via Baileys API local"""
         try:
             phone = ''.join(filter(str.isdigit, appointment.customer_phone))
             if not phone.startswith('55'):
                 phone = '55' + phone
-            
             message = self._format_reminder_message(appointment)
-            
-            response = await self._send_message(phone, message)
-            
-            if response:
-                logger.info(f"Reminder sent to {appointment.customer_phone}")
+            resp = requests.post(
+                'http://localhost:3001/send',
+                json={"to": phone, "message": message},
+                timeout=10
+            )
+            if resp.status_code == 200:
+                logger.info(f"Reminder sent to {phone} via Baileys API")
                 return True
             else:
-                logger.error(f"Failed to send reminder to {appointment.customer_phone}")
+                logger.error(f"Failed to send reminder to {phone}: {resp.text}")
                 return False
-                
         except Exception as e:
-            logger.error(f"Error sending WhatsApp reminder: {e}")
+            logger.error(f"Error sending WhatsApp reminder via Baileys: {e}")
             return False
     
     async def _send_message(self, phone: str, message: str) -> Optional[dict]:

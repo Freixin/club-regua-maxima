@@ -8,12 +8,12 @@ export const Button = ({
   asChild = false,
   ...props 
 }) => {
-  const baseStyles = "inline-flex items-center justify-center rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500 disabled:opacity-50";
+  const baseStyles = "inline-flex items-center justify-center rounded-md font-medium transition-all duration-300 hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-gold)] disabled:opacity-50";
   
   const variantStyles = {
-    default: "bg-green-500 text-white hover:bg-green-600",
-    outline: "border border-gray-600 bg-transparent hover:bg-slate-800",
-    ghost: "bg-transparent hover:bg-slate-800",
+    default: "bg-[var(--color-gold)] text-[var(--color-bg-main)] hover:bg-[var(--color-gold-dark)] border-none shadow-lg",
+    outline: "border border-[var(--color-gold)] bg-transparent hover:bg-[var(--color-gold)] hover:text-[var(--color-bg-main)] text-[var(--color-gold)]",
+    ghost: "bg-transparent hover:bg-[var(--color-gold)]/10 hover:text-[var(--color-gold)] text-[var(--color-text-main)]",
   };
   
   const sizeStyles = {
