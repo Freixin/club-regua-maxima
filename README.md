@@ -51,7 +51,7 @@ Sistema full-stack desenvolvido para automatizar o processo de agendamento de um
 
 ```bash
 # Clone o repositório
-git clone https://github.com/seu-usuario/club-regua-maxima.git
+git clone https://github.com/Freixin/club-regua-maxima.git
 cd club-regua-maxima
 
 # Instale as dependências
@@ -122,10 +122,10 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para ma
 
 ## 👨‍💻 Autor
 
-**[Seu Nome]**
-- LinkedIn: [seu-linkedin]
-- GitHub: [seu-github]
-- Email: [seu-email]
+**Guilherme Tarquino Freixinho**
+- LinkedIn: [https://www.linkedin.com/in/guilherme-freixinho/]
+- GitHub: [https://github.com/Freixin]
+- Email: [guilhermetfreixinho@gmail.com]
 
 ---
 
