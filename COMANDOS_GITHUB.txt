@@ -1,0 +1,12 @@
+# Comandos para conectar ao GitHub
+
+# 1. Substitua SEU_USUARIO pelo seu username do GitHub
+git remote add origin https://github.com/SEU_USUARIO/club-regua-maxima.git
+
+# 2. Enviar para o GitHub
+git push -u origin main
+
+# 3. Para futuras atualizações:
+git add .
+git commit -m "Descrição da mudança"
+git push
