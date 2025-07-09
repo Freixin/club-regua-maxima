@@ -73,14 +73,36 @@ cp .env.example .env
 
 ## 📱 Screenshots
 
-### Interface Principal
-![Hero Section](screenshots/hero.png)
+### 🏠 Página Inicial
+<div align="center">
+  <img src="screenshots/home-page.png" alt="Página Inicial" width="800"/>
+  <p><em>Interface principal com hero section e informações da barbearia</em></p>
+</div>
 
-### Agendamento
-![Booking Form](screenshots/booking.png)
+### 📅 Sistema de Agendamento
+<div align="center">
+  <img src="screenshots/agendamento.png" alt="Sistema de Agendamento" width="800"/>
+  <p><em>Fluxo completo de agendamento com seleção de serviços</em></p>
+</div>
 
-### Painel Admin
-![Admin Dashboard](screenshots/admin.png)
+### 👨‍💼 Painel Administrativo
+<div align="center">
+  <img src="screenshots/admin-dashboard.png" alt="Dashboard Administrativo" width="800"/>
+  <p><em>Dashboard com estatísticas e gestão de agendamentos</em></p>
+</div>
+
+### 📱 WhatsApp Integration
+<div align="center">
+  <img src="screenshots/whatsapp-status.png" alt="Status WhatsApp" width="400"/>
+  <p><em>Monitoramento do status da integração WhatsApp</em></p>
+</div>
+
+### 📱 Versão Mobile
+<div align="center">
+  <img src="screenshots/mobile/home-mobile.png" alt="Home Mobile" width="300"/>
+  <img src="screenshots/mobile/agendamento-mobile.png" alt="Agendamento Mobile" width="300"/>
+  <p><em>Interface responsiva otimizada para dispositivos móveis</em></p>
+</div>
 
 ## 🏗️ Arquitetura
 

@@ -53,3 +53,8 @@ whatsapp-bot/.wwebjs_auth/
 
 # Documentação pessoal (opcional - descomente se não quiser versionar)
 # docs/
+
+# Screenshots temporários (descomente se necessário)
+# screenshots/*.tmp
+# screenshots/*.bak
+# screenshots/temp/
