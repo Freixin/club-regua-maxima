@@ -11,6 +11,7 @@ from motor.motor_asyncio import AsyncIOMotorClient
 import uuid
 from datetime import time as dt_time
 from bson import ObjectId
+from slugify import slugify
 # from pydantic import BaseModel, Field, constr, EmailStr
 # Add the backend directory to the Python path
 backend_dir = Path(__file__).parent
@@ -114,6 +115,76 @@ async def get_service(service_id: str):
         logger.error(f"Error fetching service {service_id}: {e}")
         raise HTTPException(status_code=500, detail="Failed to fetch service")
 
+@api_router.post("/services/populate")
+async def populate_services():
+    """
+    Populates the database with a predefined list of services.
+    This will clear all existing services.
+    """
+    SERVICES_DATA = [
+        {"name": "Corte", "price": 40, "duration": 30, "category": "Corte"},
+        {"name": "Corte Kids", "price": 40, "duration": 30, "category": "Corte"},
+        {"name": "Barba", "price": 30, "duration": 20, "category": "Barba"},
+        {"name": "Cavanhaque", "price": 20, "duration": 15, "category": "Barba"},
+        {"name": "Sobrancelha", "price": 10, "duration": 10, "category": "Sobrancelha"},
+        {"name": "Pezinho/Acabamento", "price": 15, "duration": 15, "category": "Acabamento"},
+        {"name": "Corte + Barba", "price": 60, "duration": 50, "category": "Combo"},
+        {"name": "Corte + Barba + Sobrancelhas", "price": 65, "duration": 60, "category": "Combo"},
+        {"name": "Corte + Cavanhaque", "price": 50, "duration": 45, "category": "Combo"},
+        {"name": "Corte + Cavanhaque + Sobrancelha", "price": 55, "duration": 55, "category": "Combo"},
+        {"name": "Corte + Sobrancelha", "price": 45, "duration": 40, "category": "Combo"},
+        {"name": "Corte + Bigode", "price": 45, "duration": 40, "category": "Combo"},
+        {"name": "Corte + Bigode + Sobrancelhas", "price": 50, "duration": 50, "category": "Combo"},
+        {"name": "Corte + Pigmentação", "price": 60, "duration": 60, "category": "Premium"},
+        {"name": "Corte + Pigmentação + Sobrancelhas", "price": 65, "duration": 70, "category": "Premium"},
+        {"name": "Corte + Pigmentação + Bigode", "price": 65, "duration": 70, "category": "Premium"},
+        {"name": "Corte + Pigmentação + Sobrancelhas + Bigode", "price": 70, "duration": 80, "category": "Premium"},
+        {"name": "Corte + Pigmentação + Barba", "price": 80, "duration": 80, "category": "Premium"},
+        {"name": "Corte + Pigmentação + Barba + Sobrancelhas", "price": 85, "duration": 90, "category": "Premium"},
+        {"name": "Corte + Pigmentação + Cavanhaque", "price": 70, "duration": 75, "category": "Premium"},
+        {"name": "Corte + Pigmentação + Cavanhaque + Sobrancelhas", "price": 75, "duration": 85, "category": "Premium"},
+        {"name": "Corte + Reflexo", "price": 80, "duration": 90, "category": "Premium"},
+        {"name": "Corte + Reflexo + Sobrancelhas", "price": 85, "duration": 100, "category": "Premium"},
+        {"name": "Corte + Reflexo + Bigode", "price": 85, "duration": 100, "category": "Premium"},
+        {"name": "Corte + Reflexo + Sobrancelhas + Bigode", "price": 90, "duration": 110, "category": "Premium"},
+        {"name": "Corte + Reflexo + Barba", "price": 100, "duration": 110, "category": "Premium"},
+        {"name": "Corte + Reflexo + Barba + Sobrancelhas", "price": 105, "duration": 120, "category": "Premium"},
+        {"name": "Corte + Reflexo + Cavanhaque", "price": 90, "duration": 105, "category": "Premium"},
+        {"name": "Corte + Reflexo + Cavanhaque + Sobrancelhas", "price": 95, "duration": 115, "category": "Premium"},
+        {"name": "Corte + Nevou", "price": 100, "duration": 120, "category": "Premium"},
+        {"name": "Corte + Nevou + Sobrancelhas", "price": 105, "duration": 130, "category": "Premium"},
+        {"name": "Corte + Nevou + Bigode", "price": 105, "duration": 130, "category": "Premium"},
+        {"name": "Corte + Nevou + Sobrancelhas + Bigode", "price": 110, "duration": 140, "category": "Premium"},
+        {"name": "Corte + Nevou + Barba", "price": 120, "duration": 140, "category": "Premium"},
+        {"name": "Corte + Nevou + Barba + Sobrancelhas", "price": 125, "duration": 150, "category": "Premium"},
+        {"name": "Corte + Nevou + Cavanhaque", "price": 110, "duration": 135, "category": "Premium"},
+        {"name": "Corte + Nevou + Cavanhaque + Sobrancelhas", "price": 115, "duration": 145, "category": "Premium"}
+    ]
+    try:
+        await database.services.delete_many({})
+        logger.info("Cleared existing services.")
+
+        new_services = []
+        for service_data in SERVICES_DATA:
+            service_id = slugify.slugify(service_data["name"])
+            service = Service(
+                id=service_id,
+                is_active=True,
+                **service_data
+            )
+            new_services.append(service.dict())
+        
+        if new_services:
+            await database.services.insert_many(new_services)
+            logger.info(f"Successfully populated {len(new_services)} services.")
+            return {"message": f"Successfully populated {len(new_services)} services."}
+        else:
+            return {"message": "No services to populate."}
+            
+    except Exception as e:
+        logger.error(f"Error populating services: {e}")
+        raise HTTPException(status_code=500, detail="Failed to populate services")
+
 # Simple appointment endpoint for testing
 @api_router.post("/appointments")
 async def create_appointment_simple(appointment_data: dict):
@@ -137,25 +208,34 @@ async def create_appointment_simple(appointment_data: dict):
 # Original appointment endpoint
 @api_router.post("/appointments-full", response_model=AppointmentResponse)
 async def create_appointment(appointment_data: AppointmentCreate):
+    logger.info(f"Recebida nova solicitação de agendamento: {appointment_data.dict()}")
     try:
         # Buscar o serviço pelo ID informado
+        logger.info(f"Buscando serviço com ID: {appointment_data.service}")
         service = await database.services.find_one({"id": appointment_data.service})
         if not service:
+            logger.error(f"Serviço com ID {appointment_data.service} não encontrado.")
             raise HTTPException(status_code=404, detail="Serviço não encontrado.")
+        logger.info(f"Serviço encontrado: {service['name']}")
 
         # Extrair data e hora do campo date_time
-        appointment_date = appointment_data.date_time.date()
-        appointment_time = appointment_data.date_time.time()
+        appointment_datetime = appointment_data.date_time
+        appointment_date = appointment_datetime.date()
+        appointment_time = appointment_datetime.time()
+        logger.info(f"Data do agendamento: {appointment_date}, Hora: {appointment_time}")
 
         # Verificar se já existe agendamento para o mesmo horário e serviço
+        logger.info("Verificando conflitos de horário...")
         existing_appointment = await database.appointments.find_one({
             "appointment_date": appointment_date.isoformat(),
-            "appointment_time": appointment_time.isoformat(),
+            "appointment_time": appointment_time.strftime("%H:%M:%S"),
             "service_id": appointment_data.service,
             "status": {"$in": ["pending", "confirmed"]}
         })
         if existing_appointment:
+            logger.warning(f"Conflito de horário detectado para o serviço {appointment_data.service} em {appointment_date} {appointment_time}")
             raise HTTPException(status_code=409, detail="Horário já reservado para este serviço.")
+        logger.info("Nenhum conflito de horário encontrado.")
 
         appointment = Appointment(
             customer_id=str(uuid.uuid4()),  # ou lógica para buscar/criar customer
@@ -173,14 +253,17 @@ async def create_appointment(appointment_data: AppointmentCreate):
         # Serializar campos para o MongoDB
         appointment_dict = appointment.dict(by_alias=True)
         appointment_dict["appointment_date"] = appointment_dict["appointment_date"].isoformat()
-        appointment_dict["appointment_time"] = appointment_dict["appointment_time"].isoformat()
+        appointment_dict["appointment_time"] = appointment_dict["appointment_time"].strftime("%H:%M:%S")
+        
         # Remover _id se for None para evitar erro de duplicidade
         if appointment_dict.get("_id") is None:
-            appointment_dict.pop("_id")
+            appointment_dict.pop("_id", None)
 
         # Inserir no banco
+        logger.info(f"Inserindo agendamento no banco de dados: {appointment_dict}")
         result = await database.appointments.insert_one(appointment_dict)
         appointment.id = str(result.inserted_id)
+        logger.info(f"Agendamento criado com sucesso. ID: {appointment.id}")
 
         # Retornar resposta
         response = AppointmentResponse(
@@ -200,15 +283,18 @@ async def create_appointment(appointment_data: AppointmentCreate):
         )
 
         # Enviar confirmação via WhatsApp
+        logger.info(f"Enviando confirmação do agendamento {appointment.id} para o WhatsApp.")
         await whatsapp_service.send_appointment_confirmation(response)
+        logger.info("Confirmação via WhatsApp enviada.")
 
         return response
 
-    except HTTPException:
-        raise
+    except HTTPException as http_exc:
+        logger.error(f"HTTP Exception ao criar agendamento: {http_exc.detail}")
+        raise http_exc
     except Exception as e:
-        logger.error(f"Error creating appointment: {e}")
-        raise HTTPException(status_code=500, detail="Failed to create appointment")
+        logger.exception("Erro inesperado ao criar agendamento:")
+        raise HTTPException(status_code=500, detail="Ocorreu um erro inesperado ao processar o agendamento.")
 
 @api_router.get("/appointments", response_model=List[AppointmentResponse])
 async def get_appointments(

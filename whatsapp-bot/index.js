@@ -3,12 +3,11 @@ import { makeWASocket, useMultiFileAuthState, DisconnectReason } from '@whiskeys
 import express from 'express'
 import { Boom } from '@hapi/boom'
 import qrcode from 'qrcode-terminal'
-import cors from 'cors'
+import pino from 'pino'
 
 const PORT = 3001
 const app = express()
 app.use(express.json())
-app.use(cors()) // Habilitar CORS para todas as rotas
 
 let sock = null
 
@@ -21,7 +20,9 @@ async function startSock() {
     const { state, saveCreds } = await useMultiFileAuthState('auth_info_baileys')
     sock = makeWASocket({
       auth: state,
-      printQRInTerminal: true,
+      // A opção printQRInTerminal foi removida, pois está obsoleta
+      // e já estamos tratando o QR code manualmente.
+      logger: pino({ level: 'silent' }), // Reduz os logs para um nível mínimo
       defaultQueryTimeoutMs: 60_000,
       syncFullHistory: false,
       connectTimeoutMs: 60000,
@@ -79,28 +80,24 @@ async function startSock() {
     }
   }
 }
-}
 
 startSock()
 
 // API para enviar mensagem
 // Endpoint para verificar status do serviço
 app.get('/status', (req, res) => {
-  const statusData = {
-    status: (sock && sock.user) ? 'connected' : 'disconnected',
-    user: (sock && sock.user) ? sock.user.id : null,
-    connected: !!(sock && sock.user),
-    timestamp: new Date().toISOString()
-  };
-  
-  // Suporte a JSONP
-  const callback = req.query.callback;
-  if (callback) {
-    return res.type('text/javascript').send(`${callback}(${JSON.stringify(statusData)})`);
+  if (sock && sock.user) {
+    res.json({
+      status: 'connected',
+      user: sock.user.id,
+      connected: true
+    })
+  } else {
+    res.json({
+      status: 'disconnected',
+      connected: false
+    })
   }
-  
-  // Resposta JSON padrão
-  res.json(statusData);
 })
 
 app.post('/send', async (req, res) => {
@@ -111,12 +108,10 @@ app.post('/send', async (req, res) => {
   
   // Verificar se o WhatsApp está conectado
   if (!sock || !sock.user) {
-    console.log('WhatsApp não está conectado. Tentando reconectar...')
-    // Tentar reconectar
-    startSock()
-    return res.status(503).json({ 
-      error: 'WhatsApp não está conectado', 
-      message: 'Tentando reconectar. Tente novamente em alguns segundos.' 
+    console.log('WhatsApp não está conectado. A API não pode enviar a mensagem.')
+    return res.status(503).json({
+      error: 'WhatsApp não está conectado',
+      message: 'O serviço não está disponível. Tente novamente mais tarde.'
     })
   }
   

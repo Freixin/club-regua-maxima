@@ -50,3 +50,6 @@ whatsapp-bot/.wwebjs_auth/
 # Backup files
 *.bak
 *.tmp
+
+# Documentação pessoal (opcional - descomente se não quiser versionar)
+# docs/

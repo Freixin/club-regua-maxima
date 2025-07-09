@@ -1,6 +1,6 @@
 # 🪒 Club Régua Máxima - Barbershop Booking System
 
-> Sistema completo de agendamento online para barbearia com integração WhatsApp
+> Sistema de agendamento online para barbearia com integração WhatsApp (em desenvolvimento)
 
 [![React](https://img.shields.io/badge/React-18.2.0-blue.svg)](https://reactjs.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.104.1-green.svg)](https://fastapi.tiangolo.com/)
@@ -9,7 +9,7 @@
 
 ## 🚀 Sobre o Projeto
 
-Sistema full-stack desenvolvido para automatizar o processo de agendamento de uma barbearia, incluindo notificações automáticas via WhatsApp e painel administrativo completo.
+Sistema full-stack em desenvolvimento para automatizar o processo de agendamento de uma barbearia, incluindo notificações automáticas via WhatsApp e painel administrativo completo.
 
 ### ✨ Principais Funcionalidades
 
@@ -98,15 +98,15 @@ cp .env.example .env
 - [x] Visualização de serviços disponíveis
 - [x] Seleção de data e horário
 - [x] Preenchimento de dados pessoais
-- [x] Confirmação via WhatsApp
+- [ ] Confirmação via WhatsApp (em testes)
 - [x] Cancelamento de agendamentos
 
 ### Para Administradores
 - [x] Dashboard com métricas
 - [x] Calendário de agendamentos
 - [x] Gestão de clientes
-- [x] Configuração de serviços
-- [x] Relatórios e estatísticas
+- [ ] Configuração de serviços (em desenvolvimento)
+- [ ] Relatórios e estatísticas (em desenvolvimento)
 
 ## 🤝 Contribuindo
 

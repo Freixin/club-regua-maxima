@@ -20,7 +20,6 @@ start "Frontend" cmd /k "cd /d C:\Users\IPRV AMD\Documents\Estudos\Projetos\Site
 
 echo Todos os servicos foram iniciados!
 echo.
-echo Para acessar o painel de administracao: http://localhost:3000/admin
 echo Para acessar o site principal: http://localhost:3000
 echo.
 start http://localhost:3000/admin
