@@ -91,10 +91,10 @@ cp .env.example .env
   <p><em>Dashboard com estatísticas e gestão de agendamentos</em></p>
 </div>
 
-### 📱 WhatsApp Integration
+### 📱 Integração WhatsApp
 <div align="center">
-  <img src="screenshots/whatsapp-status.png" alt="Status WhatsApp" width="400"/>
-  <p><em>Monitoramento do status da integração WhatsApp</em></p>
+  <img src="screenshots/whatsapp-integration.png" alt="Integração WhatsApp" width="600"/>
+  <p><em>Bot WhatsApp enviando confirmações automáticas com todos os detalhes do agendamento</em></p>
 </div>
 
 ### 📱 Versão Mobile
