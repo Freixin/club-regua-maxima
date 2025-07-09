@@ -71,6 +71,20 @@ cp .env.example .env
 - **API:** http://localhost:8000
 - **Admin:** http://localhost:3000/admin
 
+## 🌐 Deploy
+
+### 🚀 Site em Produção
+- **🔗 Site Online:** [club-regua-maxima.vercel.app](https://club-regua-maxima.vercel.app) *(em breve)*
+- **📖 Guia de Deploy:** [DEPLOY.md](DEPLOY.md)
+- **⚡ Deploy Rápido:** Execute `scripts/prepare-deploy.bat`
+
+### 📋 Deploy Checklist:
+- ✅ Configuração para Vercel incluída
+- ✅ MongoDB Atlas suportado  
+- ✅ Variáveis de ambiente configuradas
+- ✅ Build otimizado para produção
+- ✅ SSL e CDN automáticos
+
 ## 📱 Screenshots
 
 ### 🏠 Página Inicial
